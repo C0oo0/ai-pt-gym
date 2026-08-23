@@ -17,7 +17,7 @@ tanpa biaya PT, dan malas mencatat latihan secara manual.
 - Backend: tRPC v11
 - DB: PostgreSQL + Prisma (client di `generated/prisma`)
 - Auth: NextAuth v5 (Discord) — placeholder, dipasang Minggu 3
-- Deploy: Vercel
+- Deploy: Vercel — live di https://aiptgym.vercel.app (sejak Minggu 0)
 
 ## Success Criteria (MVP)
 - Orang asing bisa daftar, mengobrol dengan AI PT, dan mencatat satu sesi latihan
