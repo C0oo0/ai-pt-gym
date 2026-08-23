@@ -28,6 +28,21 @@ tanpa biaya PT, dan malas mencatat latihan secara manual.
 ## Rencana
 Lihat `plans/` (format OKF). Mulai dari `plans/index.md`.
 
+## Data Models
+- `User` — model NextAuth (dipakai ulang, jangan duplikat): id, name, email (unique), image.
+- `ChatMessage` — userId (Cascade), role enum `USER|ASSISTANT`, content, createdAt.
+  Index: `(userId, createdAt)` — query riwayat chat selalu per-user urut waktu.
+- `WorkoutEntry` — userId (Cascade), date (DATE murni, bebas timezone), exercise,
+  sets, reps, weight (kg integer; rentang divalidasi di lapisan `normalize*`, bukan skema).
+  Index: `(userId, date)`.
+- `DietEntry` — userId (Cascade), date (DATE), food, qty (string bebas), calories?
+  (estimasi AI, nullable). Index: `(userId, date)`.
+- Kebijakan hapus: user terhapus → semua catatan pribadinya ikut terhapus (Cascade).
+- Migrasi pertama: `20260823080622_init`. Baca SQL-nya di `prisma/migrations/`.
+
+## Utang Pembersihan
+- Model `Post` + router/UI demo T3 masih ada — hapus saat mulai membangun UI sungguhan.
+
 ## Keputusan & Utang Tercatat
 - 2026-08-23: build memakai `--turbopack` (webpack glob EPERM terhadap junction
   Windows di luar proyek; Turbopack lolos penuh: compile+lint+typecheck).
