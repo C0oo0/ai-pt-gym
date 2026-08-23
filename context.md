@@ -5,7 +5,8 @@
 
 ## Purpose
 Web app kebugaran tempat user mengobrol dengan AI PT: konsultasi program, diskusi diet,
-dan mencatat latihan/makanan cukup dengan bercerita (tanpa form).
+dan mencatat latihan/makanan — cukup dengan bercerita (jalur utama) atau lewat form
+cepat (later; lihat `plans/manual-entry.md`).
 
 ## Target Users
 Orang yang latihan di gym (pemula–menengah) yang ingin arahan layaknya personal trainer

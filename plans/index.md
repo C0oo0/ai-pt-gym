@@ -13,4 +13,5 @@
 - [Log diet via chat](diet-log.md) - Pola ekstraksi yang sama, diterapkan ke makanan.
 
 ## Later
+- [Form input manual](manual-entry.md) - Pintu kedua pencatatan (selain chat), memakai validasi yang sama.
 - [Halaman progres](progress-view.md) - Riwayat & ringkasan volume/kalori. Tertahan sampai data model ada.

@@ -8,7 +8,8 @@ timestamp: 2026-08-22
 
 # Goal
 User mengobrol dengan "AI PT": minta program, diskusikan diet, dan cukup bercerita apa
-yang ia latih/makan untuk semuanya tercatat otomatis. Tanpa form, tanpa input manual.
+yang ia latih/makan untuk semuanya tercatat otomatis. Jalur utama pencatatan adalah
+chat; form manual cepat menyusul di [manual-entry](manual-entry.md) (later).
 
 # Pieces
 1. [Data model](data-model.md) - entitas inti, skema sebelum UI (Minggu 1).
