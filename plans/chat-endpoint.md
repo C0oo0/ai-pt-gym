@@ -13,12 +13,14 @@ sebagai konteks — jadi terasa seperti PT yang mengenal usernya.
 
 # Pieces
 1. Route `POST /api/chat` (wajib auth — Minggu 3; tolak tanpa session).
-2. Muat N pesan terakhir user sebagai konteks (mulai N = 20).
-3. System prompt persona PT: suportif, bahasa Indonesia, proaktif bertanya
+2. Provider LLM via env var (`LLM_BASE_URL`, `LLM_API_KEY`, `LLM_MODEL`),
+   kontrak OpenAI-compatible — lihat [kesimpulan spike](spike-odysseus.md).
+3. Muat N pesan terakhir user sebagai konteks (mulai N = 20).
+4. System prompt persona PT: suportif, bahasa Indonesia, proaktif bertanya
    (tujuan, berat badan, pengalaman, cedera), TIDAK memberi nasihat medis,
    dan memanggil pencatatan saat user bercerita latihan/makanan.
-4. Simpan pesan user + balasan assistant ke `ChatMessage`.
-5. Tangani error provider LLM: balas pesan gagal yang jujur, jangan bubble kosong.
+5. Simpan pesan user + balasan assistant ke `ChatMessage`.
+6. Tangani error provider LLM: balas pesan gagal yang jujur, jangan bubble kosong.
 
 # Out of scope
 - Streaming token per kata.

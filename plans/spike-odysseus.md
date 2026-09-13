@@ -1,39 +1,44 @@
 ---
 type: Spike
 title: Evaluasi Odysseus AI
-description: Validasi Odysseus AI (klaim: gratis & open source, belum pernah diuji kami) sebagai otak AI PT, dengan target arsitektur RAG.
-tags: [llm, chat, rag, mvp]
-timestamp: 2026-08-23
+description: Hasil verifikasi Odysseus AI — self-hosted AI workspace, BUKAN provider LLM untuk server web. Keputusan provider dipindah ke abstraksi OpenAI-compatible.
+tags: [llm, chat, mvp]
+timestamp: 2026-09-13
 ---
 
 # Trigger
 Keputusan provider untuk [chat endpoint](chat-endpoint.md). Keputusan awal pemilik
-produk (2026-08-23): Odysseus AI, pendekatan **RAG** dengan korpus research gym.
-Klaim terdengar: gratis & open source — BELUM terverifikasi, belum pernah dipakai.
+produk (2026-08-23): Odysseus AI + RAG riset gym. Klaim: gratis & open source.
 
-# Fakta yang harus diverifikasi dulu
-- Proyeknya eksis, aktif, dan licensinya mengizinkan penggunaan komersial.
-- Bentuk konsumsinya: hosted API atau harus self-host? (menentukan biaya & privasi)
-- Dukungan **tool calling / structured output** — wajib untuk
-  [log-workout](log-workout.md); tanpa ini, ekstraksi entri mustahil andal.
-- Kualitas bahasa Indonesia percakapan santai.
+# Temuan (diverifikasi 2026-09-13)
+- Repo utama: `odysseus-dev/odysseus`, ~87k bintang, AGPL-3.0, aktif.
+- Odysseus adalah **self-hosted AI WORKSPACE** (chat, agen, riset, dokumen, email,
+  catatan untuk pemakai pribadi) — bukan model, bukan hosted API.
+- Deployment: Docker Compose di mesin sendiri (mesin kita: tidak ada Docker).
+- Ia meng-orkestrasi model lokal/API ("local/API models") — bukan framework
+  training/fine-tuning. Fitur RAG/memory-nya hidup DI DALAM workspace-nya,
+  tidak berpindah ke app kita.
+- Klaim "gratis & open source": BENAR untuk aplikasinya. TAPI inferensi untuk
+  produksi tidak pernah gratis: server Vercel tidak bisa menjangkau PC rumahan.
 
-# Steps
-1. Uji 3 skenario kunci dengan persona PT yang SAMA:
-   - Konsultasi: "bikinin program push pull legs 4 hari".
-   - Ekstraksi: "tadi squat 80kg 3x8 sama bench 60kg 5x5" → harus jadi 2 entri.
-   - Keamanan: cerita nyeri sendi → menyarankan profesional, BUKAN diagnosa.
-2. Dua varian, model yang sama: (A) persona + riset dipadatkan di system prompt,
-   (B) RAG penuh. B harus MENGALAHKAN A untuk dibangun — kalau seri, pilih A
-   (YAGNI: RAG = infra ekstra: vector store, embeddings, pipeline dokumen).
-3. Catat per varian: latensi, akurasi ekstraksi, biaya inferensi nyata
-   ("model gratis" ≠ "infra gratis": GPU/server/hosting tetap berbiaya).
-4. Cek privasi: info kesehatan user. Self-host = data tidak keluar (menang
-   privasi); hosted API = tinjau kebijakan datanya.
+# Kesimpulan
+Odysseus **bukan kandidat backend** untuk chat endpoint kita (mvp). Yang kita
+butuhkan: endpoint **OpenAI-compatible** yang bisa dipanggil server-side.
+
+Keputusan arsitektur pengganti:
+1. Provider diabstraksi lewat env var (`LLM_BASE_URL`, `LLM_API_KEY`, `LLM_MODEL`)
+   — tukar provider = ganti env, bukan ganti kode.
+2. Dev lokal: Ollama (OpenAI-compatible, gratis, jalannya di PC) — opsional.
+3. Produksi: provider dengan free tier (kandidat: Groq / Gemini / OpenRouter
+   free models) — pilih saat membangun chat endpoint.
+4. Korpus riset gym: mulai dari opsi (a) dipadatkan di system prompt.
+   RAG penuh ditunda sampai (a) terbukti kurang (YAGNI).
+5. Odysseus tetap boleh dipakai pemilik produk sebagai workspace pribadi
+   (belajar/mencatat), di luar arsitektur app ini.
 
 # Done looks like
-- Keputusan tercatat di file ini dengan alasan satu baris.
-- `Plan` tindak lanjut dibuat untuk menggelarnya di chat endpoint.
+- [x] Keputusan tercatat dengan alasan.
+- [ ] Plan tindak lanjut: chat-endpoint.md memakai abstraksi env-var di atas.
 
 # Citations
 [1] [Chat endpoint](chat-endpoint.md)
