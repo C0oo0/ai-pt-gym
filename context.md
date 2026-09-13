@@ -40,6 +40,14 @@ Lihat `plans/` (format OKF). Mulai dari `plans/index.md`.
 - Kebijakan hapus: user terhapus → semua catatan pribadinya ikut terhapus (Cascade).
 - Migrasi pertama: `20260823080622_init`. Baca SQL-nya di `prisma/migrations/`.
 
+## Testing
+- Runner: Vitest (`npm run test`, watch: `npm run test:watch`, coverage: `npm run test -- --coverage`).
+- `src/lib/workout.ts` — `normalizeWorkoutEntries`: 13 unit test, 100% baris.
+  Ini pagar halusinasi: output AI tidak pernah masuk DB tanpa lolos normalisasi.
+- Belum ada: integration test endpoint chat (menyusul setelah endpoint ada, pasca-spike).
+- Aturan dari Minggu 2: tes ditulis SEBELUM implementasi (Red-Green-Refactor);
+  AI dilarang mengedit file tes agar lulus.
+
 ## Utang Pembersihan
 - Model `Post` + router/UI demo T3 masih ada — hapus saat mulai membangun UI sungguhan.
 
