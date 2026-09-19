@@ -48,6 +48,15 @@ Lihat `plans/` (format OKF). Mulai dari `plans/index.md`.
 - Aturan dari Minggu 2: tes ditulis SEBELUM implementasi (Red-Green-Refactor);
   AI dilarang mengedit file tes agar lulus.
 
+## Auth
+- Provider: Discord (NextAuth v5 + PrismaAdapter). Konfigurasi: `src/server/auth/config.ts`.
+- Tembok berlapis dua: (1) `src/middleware.ts` = gerbang UX (cek cookie sesi, tanpa
+  Prisma karena Edge runtime — otorisasi sesungguhnya BUKAN di sini); (2) halaman
+  server + `protectedProcedure` tRPC = otorisasi sebenarnya.
+- Halaman terlindungi: `/chat`. UI hanya bergantung pada abstraksi `auth()`/session
+  (bukan provider) — provider bisa ditambah/ditukar tanpa menyentuh UI.
+- Middleware punya 4 unit test (`src/middleware.test.ts`), TDD penuh.
+
 ## Utang Pembersihan
 - Model `Post` + router/UI demo T3 masih ada — hapus saat mulai membangun UI sungguhan.
 
