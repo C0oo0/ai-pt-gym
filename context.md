@@ -59,6 +59,16 @@ Lihat `plans/` (format OKF). Mulai dari `plans/index.md`.
 
 ## Utang Pembersihan
 - Model `Post` + router/UI demo T3 masih ada — hapus saat mulai membangun UI sungguhan.
+- Integration test endpoint chat end-to-end dengan DB (perlu test DB terisolasi).
+
+## AI PT Chat (server-side, v1)
+- Router: `src/server/api/routers/chat.ts` — `chat.send` (protectedProcedure)
+  dan `chat.history`. Riwayat konteks: 20 pesan terakhir.
+- Klien LLM: `src/server/llm/client.ts` — kontrak OpenAI-compatible via env
+  `LLM_BASE_URL` / `LLM_API_KEY` / `LLM_MODEL` (dev: Ollama; prod: free tier).
+- Persona PT: `src/server/llm/prompt.ts` (tanpa nasihat medis, kalori = estimasi).
+- Error provider → pesan gagal yang jujur; pesan user tetap tersimpan.
+- Tool calling `logWorkout` belum aktif — itu slice `plans/log-workout.md`.
 
 ## Keputusan & Utang Tercatat
 - 2026-08-23: build memakai `--turbopack` (webpack glob EPERM terhadap junction
